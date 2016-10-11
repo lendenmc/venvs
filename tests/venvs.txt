@@ -1,0 +1,28 @@
+aws-shell
+ansible
+certbot -p python2
+couchdb -p python2
+eulerpy
+fopnp -a "$PROJECT_HOME"/fopnp -r "$HOME"/projects/venvs/tests/requirements_fopnp.txt
+/opt/graphite -p python2 # monitoring tool
+gitsome
+grip
+httpie
+hypothesis
+mitmproxy
+mycli
+ocrmypdf
+pandas-cookbook -p python2 -a "$PROJECT_HOME"/pandas-cookbook -r "$HOME"/projects/venvs/tests/requirements_pandas-cookbook.txt
+pgcli
+prompt_toolkit
+ptpython
+pymux
+pyvim
+raven # python client for sentry
+scientific-python --system-site-packages -r "$HOME"/projects/venvs/tests/requirements_scientific-python.txt
+scrapy
+sendgrid
+speedtest-cli
+retext --system-site-packages # requires PyQt5 installed system-wide
+thefuck
+you-get

@@ -1,0 +1,7 @@
+ipython
+pandas
+numpy
+tornado
+pyzmq
+jinja2
+matplotlib
