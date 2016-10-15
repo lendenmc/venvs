@@ -19,7 +19,14 @@ else
 	_printf_builtin "ERROR: Unsupported shell, please use bash or zsh" >&2
 	return 1
 fi
-venvs_source_dir="$(command dirname "$venvs_source_script")"
+
+# deal with the case when 'venvs.sh' is a symlink to the 'real' script
+if ! real_script="$(command readlink -f "$venvs_source_script" 2>/dev/null)"; then # macos readlink  doesn't behave the same way as gnu readlink
+	# according to macos 'readlink' man page "If the given argument is not a symbolic link, readlink will print nothing and exit with an error",
+	# so we can add the second condition in case 'venvs_source_script' is not a symlimk
+	real_script="$(command readlink "$venvs_source_script" 2>/dev/null)"  || real_script="$venvs_source_script"
+fi
+venvs_source_dir="$(command dirname "$real_script")"
 
 . "${venvs_source_dir}/venvs_utils.sh" || return 1
 . "${venvs_source_dir}/venvs_setup.sh" || return 1
@@ -27,7 +34,7 @@ venvs_source_dir="$(command dirname "$venvs_source_script")"
 . "${venvs_source_dir}/venvs_upgrade.sh" || return 1
 
 unset -f _printf_builtin
-unset venvs_source_script venvs_source_dir
+unset venvs_source_script real_dir venvs_source_dir
 
 venvs () {
 	_venvs_checklist || return 1
