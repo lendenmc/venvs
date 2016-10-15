@@ -5,7 +5,7 @@ venvs_generate() {
 	local venvs="$1"
 	local venvs_filename venvs_dirname requirements_file
 	venvs_filename="$(command basename "$venvs")"
-	venvs_dirname="$( _venvs_cd "$( command dirname "$venvs" )" && _venvs_pwd )"
+	venvs_dirname="$(_venvs_cd "$( command dirname "$venvs" )" && _venvs_pwd)"
 	_venvs_has_venvs_file "$venvs" "$venvs_dirname" || return 1
 	_venvs_printf "Found virtualenvs ${venvs_filename} requirement file within ${venvs_dirname}\n"
     # shellcheck disable=SC2016

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-_printf_builtin() {
+printf_builtin() {
 	# shellcheck disable=SC2039
 	if [ -n "$ZSH_VERSION" ]; then
 		builtin printf "$@" || return 1
@@ -16,7 +16,7 @@ elif [ -n "$ZSH_VERSION" ]; then
 	builtin setopt function_argzero
 	venvs_source_script="$0"
 else
-	_printf_builtin "ERROR: Unsupported shell, please use bash or zsh" >&2
+	printf_builtin "ERROR: Unsupported shell, please use bash or zsh" >&2
 	return 1
 fi
 
@@ -33,7 +33,7 @@ venvs_source_dir="$(command dirname "$real_script")"
 . "${venvs_source_dir}/venvs_generate.sh" || return 1
 . "${venvs_source_dir}/venvs_upgrade.sh" || return 1
 
-unset -f _printf_builtin
+unset -f printf_builtin
 unset venvs_source_script real_dir venvs_source_dir
 
 venvs () {
