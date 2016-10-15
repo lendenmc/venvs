@@ -84,19 +84,18 @@ _venvs_install_python_packages() {
 
 _venvs_install_python_packages_as_root() {
 	local venv="$1"
-	local old_dir="$2"
-	local requirements_file="$3"
+	local requirements_file="$2"
 	if [ -n "$requirements_file" ]; then
 		if ! command sudo command pip --no-cache-dir install -r "$requirements_file"; then
 			_venvs_print_error "Failed to install some of the requirements packages"
-			_venvs_delete_virtualenv "$venv" "$old_dir"
+			_venvs_delete_virtualenv "$venv"
 			return 1
 		fi
 	else
 		_venvs_printf "So trying to install a package with the same name as virtualenv ${venv}\n" 
 		if ! command sudo command pip --no-cache-dir install "$venv"; then
 			_venvs_print_error "Failed to install ${venv} package"
-			_venvs_delete_virtualenv "$venv" "$old_dir"
+			_venvs_delete_virtualenv "$venv"
 			return 1
 		fi
 	fi
@@ -136,8 +135,8 @@ _venvs_generate_as_root() {
 	local virtualenv_command="virtualenv ${venv_options} ${venv}"
 
 	_venvs_printf "\nCreating virtualenv ${venv}\n"
-	if command sudo command mkdir -p "$venv" && eval "sudo ${virtualenv_command}" && . "$venv/bin/activate"; then
-		if ! command pip freeze >/dev/null; then
+	if command sudo command mkdir -p "$venv" && eval "sudo ${virtualenv_command}" && . "${venv}/bin/activate"; then
+		if [ -z "$(command "${venv}/bin/pip" freeze >/dev/null)" ]; then
 			if _venvs_has_requirement_file "$requirements_file"; then
 				_venvs_install_python_packages_as_root "$venv" "$requirements_file" || return 1
 			else
