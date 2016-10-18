@@ -22,9 +22,7 @@ fi
 
 # deal with the case when 'venvs.sh' is a symlink to the 'real' script
 if ! real_script="$(command readlink -f "$venvs_source_script" 2>/dev/null)"; then # macos readlink  doesn't behave the same way as gnu readlink
-	# according to macos 'readlink' man page "If the given argument is not a symbolic link, readlink will print nothing and exit with an error",
-	# so we can add the second condition in case 'venvs_source_script' is not a symlimk
-	real_script="$(command readlink "$venvs_source_script" 2>/dev/null)"  || real_script="$venvs_source_script"
+	real_script="$(command python -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' "$venvs_source_script")"
 fi
 venvs_source_dir="$(command dirname "$real_script")"
 
