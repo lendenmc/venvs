@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# shellcheck disable=SC2148
 
 _venvs_force_buitlin() {
 	local cmd="$1"

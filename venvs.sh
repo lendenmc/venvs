@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# shellcheck disable=SC2148
 
 printf_builtin() {
 	# shellcheck disable=SC2039

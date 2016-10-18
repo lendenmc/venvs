@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# shellcheck disable=SC2148
 
 venvs_generate() {
 	_venvs_checklist || return 1

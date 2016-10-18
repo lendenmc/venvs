@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# shellcheck disable=SC2148
 
 # This function is needed because some of your virtualenvs might end up be broken after an upgrade of the Python version used in it, 
 # especially with macOS Homebrew (see http://stackoverflow.com/a/25947333/3190077)
