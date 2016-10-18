@@ -115,7 +115,7 @@ _venvs_generate() {
 
 	_venvs_printf "\nCreating virtualenv ${venv}\n"
 	if eval "$virtualenv_command"; then
-		if [ -z "$(command pip freeze >/dev/null)" ]; then
+		if [ -z "$(command pip freeze 2>/dev/null)" ]; then
 			if _venvs_has_requirement_file "$requirements_file"; then
 				_venvs_install_python_packages "$venv" "$old_dir" "$requirements_file" || return 1
 			else
@@ -136,7 +136,7 @@ _venvs_generate_as_root() {
 
 	_venvs_printf "\nCreating virtualenv ${venv}\n"
 	if command sudo command mkdir -p "$venv" && eval "sudo ${virtualenv_command}" && . "${venv}/bin/activate"; then
-		if [ -z "$(command "${venv}/bin/pip" freeze >/dev/null)" ]; then
+		if [ -z "$(command "${venv}/bin/pip" freeze 2>/dev/null)" ]; then
 			if _venvs_has_requirement_file "$requirements_file"; then
 				_venvs_install_python_packages_as_root "$venv" "$requirements_file" || return 1
 			else
