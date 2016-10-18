@@ -5,7 +5,7 @@ venvs_generate() {
 	local venvs="$1"
 	local venvs_filename venvs_dirname requirements_file
 	venvs_filename="$(command basename "$venvs")"
-	venvs_dirname="$(_venvs_cd "$( command dirname "$venvs" )" && _venvs_pwd)"
+	venvs_dirname="$(_venvs_cd "$(command dirname "$venvs")" && _venvs_pwd)"
 	_venvs_has_venvs_file "$venvs" "$venvs_dirname" || return 1
 	_venvs_printf "Found virtualenvs ${venvs_filename} requirement file within ${venvs_dirname}\n"
     # shellcheck disable=SC2016
@@ -182,11 +182,11 @@ _venvs_is_not_installed() {
 	# shellcheck disable=SC1001
 	if _venvs_is_root "$venv"; then
 		if command find "$venv/bin" -name activate -type f >/dev/null 2>&1; then
-			_venvs_printf "\n${venv_already_installed_txt}\n"
+			_venvs_printf "${venv_already_installed_txt}\n"
 			return 1
 		fi
 	elif \lsvirtualenv -b | (_venvs_grep -Fqx "$venv" 2>/dev/null); then
-		_venvs_printf "\n${venv_already_installed_txt}\n"
+		_venvs_printf "${venv_already_installed_txt}\n"
 		return 1
 	fi
 }
