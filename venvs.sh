@@ -24,15 +24,17 @@ fi
 if ! real_script="$(command readlink -f "$venvs_source_script" 2>/dev/null)"; then # macos readlink  doesn't behave the same way as gnu readlink
 	real_script="$(command python -c 'import os,sys;print(os.path.realpath(sys.argv[1]))' "$venvs_source_script")"
 fi
-venvs_source_dir="$(command dirname "$real_script")"
 
-. "${venvs_source_dir}/venvs_utils.sh" || return 1
-. "${venvs_source_dir}/venvs_setup.sh" || return 1
-. "${venvs_source_dir}/venvs_generate.sh" || return 1
-. "${venvs_source_dir}/venvs_upgrade.sh" || return 1
+export VENVS_SOURCE_DIR
+VENVS_SOURCE_DIR="$(command dirname "$real_script")"
+
+. "${VENVS_SOURCE_DIR}/venvs_utils.sh" || return 1
+. "${VENVS_SOURCE_DIR}/venvs_setup.sh" || return 1
+. "${VENVS_SOURCE_DIR}/venvs_generate.sh" || return 1
+. "${VENVS_SOURCE_DIR}/venvs_upgrade.sh" || return 1
 
 unset -f printf_builtin
-unset venvs_source_script real_dir venvs_source_dir
+unset venvs_source_script real_dir
 
 venvs () {
 	_venvs_checklist || return 1

@@ -1,13 +1,13 @@
 ansible
 couchdb -p python2
-fopnp -a "$PROJECT_HOME"/fopnp
+fopnp -a "$VENVS_SOURCE_DIR"/tests/empty_project_fopnp
 /opt/graphite -p python2 # monitoring tool
 hypothesis
-pandas-cookbook -p python2 -a "$PROJECT_HOME"/pandas-cookbook -r "$HOME"/projects/venvs/tests/requirements_pandas-cookbook.txt
+pandas-cookbook -p python2 -a "$VENVS_SOURCE_DIR"/tests/empty_project_pandas-cookbook -r "$VENVS_SOURCE_DIR"/tests/requirements_pandas-cookbook.txt
 ptpython
 pymux
 raven # python client for sentry
-scientific-python --system-site-packages -r "$HOME"/projects/venvs/tests/requirements_scientific-python.txt
+scientific-python --system-site-packages -r "$VENVS_SOURCE_DIR"/tests/requirements_scientific-python.txt
 scrapy
 speedtest-cli
 retext --system-site-packages # requires pyqt5 installed system-wide
