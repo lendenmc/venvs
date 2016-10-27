@@ -66,14 +66,14 @@ _venvs_install_python_packages() {
 	local old_dir="$2"
 	local requirements_file="$3"
 	if [ -n "$requirements_file" ]; then
-		if ! command pip install -r "$requirements_file"; then
+		if ! command pip --quiet install -r "$requirements_file"; then
 			_venvs_print_error "Failed to install some of the requirements packages"
 			_venvs_delete_virtualenv "$venv" "$old_dir"
 			return 1
 		fi
 	else
-		_venvs_printf "So trying to install a package with the same name as virtualenv ${venv}\n" 
-		if ! command pip install "$venv"; then
+		_venvs_printf "So installing a package with the same name as virtualenv ${venv}\n"
+		if ! command pip --quiet install "$venv"; then
 			_venvs_print_error "Failed to install ${venv} package"
 			_venvs_delete_virtualenv "$venv" "$old_dir"
 			return 1
@@ -86,14 +86,14 @@ _venvs_install_python_packages_as_root() {
 	local venv="$1"
 	local requirements_file="$2"
 	if [ -n "$requirements_file" ]; then
-		if ! command sudo command pip --no-cache-dir install -r "$requirements_file"; then
+		if ! command sudo command pip --quiet --no-cache-dir install -r "$requirements_file"; then
 			_venvs_print_error "Failed to install some of the requirements packages"
 			_venvs_delete_virtualenv "$venv"
 			return 1
 		fi
 	else
 		_venvs_printf "So trying to install a package with the same name as virtualenv ${venv}\n" 
-		if ! command sudo command pip --no-cache-dir install "$venv"; then
+		if ! command sudo command pip --quiet --no-cache-dir install "$venv"; then
 			_venvs_print_error "Failed to install ${venv} package"
 			_venvs_delete_virtualenv "$venv"
 			return 1
